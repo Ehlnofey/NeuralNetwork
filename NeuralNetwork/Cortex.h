@@ -9,6 +9,7 @@ public:
 	Cortex(unsigned int inputSize, unsigned int outputSize, unsigned int hideLayerCount, unsigned int hideLayerSize);
 	void feed(std::vector<double> &input_data);
 	void run();
+	bool operator()(std::vector<double> &data);
 	static void setRun(bool *isRunning);
 	~Cortex();
 private:

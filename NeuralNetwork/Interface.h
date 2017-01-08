@@ -6,9 +6,13 @@ class Interface
 {
 public:
 	Interface();
-	~Interface();
+	Interface(unsigned int inputSize, unsigned int outputSize, unsigned int hideLayerCount, unsigned int hideLayerSize);
+	virtual std::vector<double> getInfo()=0;
+	virtual void learn()=0;
+	virtual ~Interface();
 
-private:
-	Cortex m_cortex;
+protected:
+	Cortex *m_cortex;
+	void init(unsigned int inputSize, unsigned int outputSize, unsigned int hideLayerCount, unsigned int hideLayerSize);
 };
 

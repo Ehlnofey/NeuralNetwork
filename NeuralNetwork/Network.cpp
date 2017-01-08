@@ -20,9 +20,12 @@ void Network::addLayer(unsigned int count)
 	for (unsigned int i = 0;i < count;i++)
 		(*m_network.rbegin())[i] = new Neuron();
 
-	for (unsigned int i = 0;i < (*m_network.rbegin()++).size();i++)
-		for (unsigned int j = 0;j < (*m_network.rbegin()).size();j++)
-			(*m_network.rbegin()++)[i]->bind((*m_network.rbegin())[j]);
+	if (m_network.size() == 1)
+		return;
+
+	for (unsigned int i = 0;i < m_network[m_network.size()-2].size();i++)
+		for (unsigned int j = 0;j < m_network[m_network.size() - 1].size();j++)
+			m_network[m_network.size() - 2][i]->bind(m_network[m_network.size() - 1][j]);
 }
 
 void Network::setInput(std::vector<double> datas)
@@ -55,7 +58,7 @@ void Network::build(unsigned int inputSize, unsigned int outputSize, unsigned in
 void Network::clear()
 {
 	for (unsigned int i = 0;i < m_network.size();i++)
-		for (unsigned int j = 0;j < m_network.size();j++)
+		for (unsigned int j = 0;j < m_network[i].size();j++)
 			delete m_network[i][j];
 
 	m_network.clear();

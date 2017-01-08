@@ -153,6 +153,7 @@
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Neuron.h" />
+    <ClInclude Include="WritingInterface.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bind.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="Neuron.cpp" />
+    <ClCompile Include="WritingInterface.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

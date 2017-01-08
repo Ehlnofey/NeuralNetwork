@@ -48,6 +48,9 @@
     <ClInclude Include="Neuron.h">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
+    <ClInclude Include="WritingInterface.h">
+      <Filter>Fichiers d%27en-tête\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -73,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="Neuron.cpp">
       <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="WritingInterface.cpp">
+      <Filter>Fichiers sources\Interface</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

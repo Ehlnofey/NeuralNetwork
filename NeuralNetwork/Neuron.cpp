@@ -16,7 +16,8 @@ double Neuron::getValue()
 	m_value = 0;
 
 	for (unsigned int i = 0;i < m_input.size();i++)
-		m_value += m_input[i]->getValue();
+		if(m_input[i]!=NULL)
+			m_value += m_input[i]->getValue();
 	
 
 	return m_value;
@@ -56,13 +57,19 @@ void Neuron::deleteMe(Bind * d)
 
 void Neuron::bind(Neuron * out)
 {
-	m_output.push_back(new Bind(this, out));
-	out->m_input.push_back(*m_output.rbegin());
+	m_input.push_back(new Bind(this, out));
+	out->m_output.push_back(*m_input.rbegin());
 }
 
 
 Neuron::~Neuron()
 {
+	for (Bind *b : m_input)
+	{
+		if (b != NULL)
+			delete b;
+		b = NULL;
+	}
 }
 
 double Neuron::sigmoide(double x)

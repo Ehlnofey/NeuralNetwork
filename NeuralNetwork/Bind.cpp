@@ -15,7 +15,11 @@ double Bind::getValue()
 	{
 		m_disactivity++;
 		if (m_disactivity > DEF_DELETE_BIND)
+		{
 			m_input->deleteMe(this);
+			m_input->removeBind(this);
+			m_output->removeBind(this);
+		}
 		return 0;
 	}
 
@@ -25,6 +29,9 @@ double Bind::getValue()
 
 void Bind::stimulate()
 {
+	if (m_input == NULL)
+		return;
+
 	m_input->stimulate();
 
 	double in_value = m_input->getValue();

@@ -6,10 +6,13 @@ class Brain
 {
 public:
 	Brain();
+	bool run();
 	~Brain();
 
 private:
-	Interface m_writingInterface;
+	WritingInterface *m_writingInterface;
 	bool isRunning;
+	bool learnningMod;
+	int count;
 };
 

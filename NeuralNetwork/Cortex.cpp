@@ -50,6 +50,11 @@ void Cortex::run()
 	datas.erase(input_data);
 }
 
+bool Cortex::operator()(std::vector<double> &data)
+{
+	return m_memory.isThisDataRelevant(data);
+}
+
 void Cortex::setRun(bool * ir)
 {
 	isRunning = ir;
