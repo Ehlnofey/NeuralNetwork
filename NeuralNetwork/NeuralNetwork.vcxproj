@@ -147,12 +147,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bind.h" />
+    <ClInclude Include="Brain.h" />
+    <ClInclude Include="Cortex.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Neuron.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bind.cpp" />
+    <ClCompile Include="Brain.cpp" />
+    <ClCompile Include="Cortex.cpp" />
+    <ClCompile Include="Interface.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Network.cpp" />

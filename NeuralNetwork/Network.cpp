@@ -9,6 +9,11 @@ Network::Network()
 {
 }
 
+Network::Network(unsigned int inputSize, unsigned int outputSize, unsigned int neuronLayer, unsigned int neuronLayerSize)
+{
+	build(inputSize, outputSize, neuronLayer, neuronLayerSize);
+}
+
 void Network::addLayer(unsigned int count)
 {
 	m_network.push_back(std::vector<Neuron*>(count, NULL));
@@ -38,6 +43,24 @@ void Network::setInput(std::vector<double> datas)
 		(*m_network.rbegin())[i]->stimulate();
 }
 
+void Network::build(unsigned int inputSize, unsigned int outputSize, unsigned int hideLayerCount, unsigned int hideLayerSize)
+{
+	clear();
+	addLayer(inputSize);
+	for (unsigned int i = 0;i < hideLayerCount;i++)
+		addLayer(hideLayerSize);
+	addLayer(outputSize);
+}
+
+void Network::clear()
+{
+	for (unsigned int i = 0;i < m_network.size();i++)
+		for (unsigned int j = 0;j < m_network.size();j++)
+			delete m_network[i][j];
+
+	m_network.clear();
+}
+
 std::vector<double> Network::getOutput()
 {
 	std::vector<double> output;
@@ -51,7 +74,5 @@ std::vector<double> Network::getOutput()
 
 Network::~Network()
 {
-	for (unsigned int i = 0;i < m_network.size();i++)
-		for (unsigned int j = 0;j < m_network.size();j++)
-			delete m_network[i][j];
+	clear();
 }

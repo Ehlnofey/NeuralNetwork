@@ -13,36 +13,66 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Interface">
+      <UniqueIdentifier>{d1cbf0fd-9055-4041-ba62-911e40bcead2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Interface">
+      <UniqueIdentifier>{3ee24705-6aba-4dbd-949d-5bf178f01a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Core">
+      <UniqueIdentifier>{e4ea4c2e-708c-4b83-b8e7-c09433dd62bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core">
+      <UniqueIdentifier>{e5876b6a-2002-4c6b-83ed-e2961bb45f3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Neuron.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="Interface.h">
+      <Filter>Fichiers d%27en-tête\Interface</Filter>
     </ClInclude>
     <ClInclude Include="Bind.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Network.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="Brain.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Cortex.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
     <ClInclude Include="Memory.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Network.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Neuron.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Neuron.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Bind.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Network.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Interface.cpp">
+      <Filter>Fichiers sources\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Bind.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Brain.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Cortex.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
     <ClCompile Include="Memory.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Neuron.cpp">
+      <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
