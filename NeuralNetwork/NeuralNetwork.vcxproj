@@ -150,6 +150,7 @@
     <ClInclude Include="Brain.h" />
     <ClInclude Include="Cortex.h" />
     <ClInclude Include="Interface.h" />
+    <ClInclude Include="Layer1D.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Neuron.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="Brain.cpp" />
     <ClCompile Include="Cortex.cpp" />
     <ClCompile Include="Interface.cpp" />
+    <ClCompile Include="Layer1D.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Network.cpp" />

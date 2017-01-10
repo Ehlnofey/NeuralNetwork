@@ -51,6 +51,9 @@
     <ClInclude Include="WritingInterface.h">
       <Filter>Fichiers d%27en-tête\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="Layer1D.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="WritingInterface.cpp">
       <Filter>Fichiers sources\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer1D.cpp">
+      <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

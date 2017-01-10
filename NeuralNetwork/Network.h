@@ -2,6 +2,7 @@
 
 class Bind;
 class Neuron;
+class Layer1D;
 
 class Network
 {
@@ -16,6 +17,6 @@ public:
 	~Network();
 
 private:
-	std::vector<std::vector<Neuron*> > m_network;
+	std::vector<Layer1D*> m_network;
 };
 

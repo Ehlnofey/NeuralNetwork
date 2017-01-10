@@ -76,3 +76,8 @@ double Neuron::sigmoide(double x)
 {
 	return 1/(1+exp(-x*Lambda));
 }
+
+double Neuron::der_sigmoide(double x)
+{
+	return 0.0;
+}

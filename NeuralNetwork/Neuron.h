@@ -13,6 +13,7 @@ public:
 	void deleteMe(Bind *d);
 	void bind(Neuron *out);
 	static double sigmoide(double x);
+	static double der_sigmoide(double x);
 	~Neuron();
 
 protected:
