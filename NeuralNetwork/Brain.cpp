@@ -20,7 +20,7 @@ Brain::Brain() : isRunning(true), learnningMod(true), count(0)
 
 bool Brain::run()
 {
-	if (count > 10000)
+	if (count > 100000)
 		learnningMod = false;
 
 	if (learnningMod)

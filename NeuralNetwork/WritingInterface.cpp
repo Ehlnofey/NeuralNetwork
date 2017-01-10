@@ -12,7 +12,7 @@
 
 
 
-WritingInterface::WritingInterface() :IN_LENGTH(20)
+WritingInterface::WritingInterface() :IN_LENGTH(50)
 {
 	init(IN_LENGTH, 5, 50, 50);
 
