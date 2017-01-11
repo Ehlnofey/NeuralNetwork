@@ -32,27 +32,6 @@ void Cortex::run()
 {
 	if (datas.size() == 0)
 		return;
-	std::list<std::vector<double>>::iterator input_data(datas.begin());
-	m_network.setInput(*input_data);
-	m_memory.add(m_network.getOutput());
-	dataAnalyze++;
-	dataAnalyzeBeforClear++;
-	if (dataAnalyze > dataAnalyzisRate)
-	{
-		m_memory.analyzeData();
-		dataAnalyze = 0;
-	}
-	if (dataAnalyzeBeforClear>dataClearRate)
-	{
-		m_memory.remove();
-		dataAnalyzeBeforClear = 0;
-	}
-	datas.erase(input_data);
-}
-
-bool Cortex::operator()(std::vector<double> &data)
-{
-	return m_memory.isThisDataRelevant(data);
 }
 
 void Cortex::setRun(bool * ir)

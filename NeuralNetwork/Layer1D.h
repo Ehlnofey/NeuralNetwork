@@ -8,6 +8,10 @@ public:
 	void bind(Layer1D* nextLayer);
 	unsigned int size();
 	void setValue(std::vector<double> datas);
+	void correctError();
+	void calcError();
+	void calcError(std::vector<double> expected);
+	std::vector<double> getError(std::vector<double> error);
 	std::vector<double> getValue();
 	void stimulate();
 	~Layer1D();

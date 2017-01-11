@@ -3,8 +3,10 @@
 #include "Bind.h"
 #include "Layer1D.h"
 
-Layer1D::Layer1D(unsigned int size) : m_layer(size,new Neuron())
+Layer1D::Layer1D(unsigned int size) : m_layer(size,NULL)
 {
+	for (unsigned int i = 0;i < m_layer.size();i++)
+		m_layer[i] = new Neuron();
 }
 
 Neuron * Layer1D::operator[](unsigned int i)
@@ -24,7 +26,7 @@ void Layer1D::bind(Layer1D * nextLayer)
 
 unsigned int Layer1D::size()
 {
-	return m_layer.size();
+	return (unsigned int)m_layer.size();
 }
 
 void Layer1D::setValue(std::vector<double> datas)
@@ -39,6 +41,38 @@ void Layer1D::setValue(std::vector<double> datas)
 
 	for (unsigned int i = 0;i < m_layer.size();i++)
 		m_layer[i]->setValue(datas[unsigned int(double(i)*resize)]);
+}
+
+void Layer1D::correctError()
+{
+	for (unsigned int i = 0;i < m_layer.size();i++)
+	{
+		m_layer[i]->correctError();
+	}
+}
+
+void Layer1D::calcError()
+{
+	for (unsigned int i = 0;i < m_layer.size();i++)
+	{
+		m_layer[i]->calcError();
+	}
+}
+void Layer1D::calcError(std::vector<double> expected)
+{
+	for (unsigned int i = 0;i < m_layer.size();i++)
+	{
+		m_layer[i]->calcError(expected[i]);
+	}
+}
+std::vector<double> Layer1D::getError(std::vector<double> e)
+{
+	std::vector<double> error;
+
+	for (unsigned int i = 0;i < m_layer.size();i++)
+		error.push_back(m_layer[i]->getError(e[i]));
+
+	return error;
 }
 
 std::vector<double> Layer1D::getValue()

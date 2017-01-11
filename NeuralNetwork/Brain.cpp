@@ -38,7 +38,7 @@ bool Brain::run()
 		if (s == "0")
 			isRunning = false;
 
-		std::cout << m_writingInterface->doYouReconizeThat(s) << std::endl;
+
 	}
 
 	return isRunning;

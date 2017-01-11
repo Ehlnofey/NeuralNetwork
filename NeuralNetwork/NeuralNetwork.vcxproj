@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Autoencoders.h" />
     <ClInclude Include="Bind.h" />
     <ClInclude Include="Brain.h" />
     <ClInclude Include="Cortex.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="WritingInterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Autoencoders.cpp" />
     <ClCompile Include="Bind.cpp" />
     <ClCompile Include="Brain.cpp" />
     <ClCompile Include="Cortex.cpp" />

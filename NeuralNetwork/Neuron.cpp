@@ -4,7 +4,7 @@
 
 double Neuron::Lambda(1.);
 
-Neuron::Neuron()
+Neuron::Neuron() : m_error(0)
 {
 }
 
@@ -57,8 +57,58 @@ void Neuron::deleteMe(Bind * d)
 
 void Neuron::bind(Neuron * out)
 {
-	m_input.push_back(new Bind(this, out));
-	out->m_output.push_back(*m_input.rbegin());
+	m_output.push_back(new Bind(this, out));
+	out->m_input.push_back(*m_output.rbegin());
+}
+
+void Neuron::correctError()
+{
+	for (unsigned int i = 0;i < m_input.size();i++)
+		m_input[i]->correctError();
+}
+
+void Neuron::calcError()
+{
+	if (m_output.size() == 0)
+		return;
+
+	double g(der_sigmoide(m_value));
+
+	double e(0.0);
+
+	for (unsigned int i = 0;i < m_output.size();i++)
+	{
+		m_output[i]->calcError();
+		e += m_output[i]->m_output->m_error;
+	}
+
+	m_error = e*g;
+}
+
+void Neuron::calcError(double expected)
+{
+	m_error = (expected - sigmoide(m_value))*der_sigmoide(m_value);
+}
+
+double Neuron::getError(double expected)
+{
+	return (expected - sigmoide(m_value))*der_sigmoide(m_value);
+}
+
+double Neuron::getError()
+{
+	return m_error;
+
+/*	double g(der_sigmoide(m_value));
+
+	double e(0.0);
+
+	for (unsigned int i = 0;i < m_output.size();i++)
+		e+=m_output[i]->getError();
+	
+	m_error = e;
+
+	return e;*/
 }
 
 
@@ -79,5 +129,5 @@ double Neuron::sigmoide(double x)
 
 double Neuron::der_sigmoide(double x)
 {
-	return 0.0;
+	return Lambda * exp(-x*Lambda) / std::pow((1 + exp(-x*Lambda)), 2);
 }

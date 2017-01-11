@@ -4,8 +4,8 @@
 #include "Neuron.h"
 
 
-Bind::Bind(Neuron * input, Neuron * output): m_input(input),m_output(output),m_coeff(double(rand())/double(RAND_MAX)), m_stimulation(0), m_active(true), Epsilon(Neuron::sigmoide(0.0)), 
-	DELETE_BIND(-100), m_disactivity(0), DEF_DELETE_BIND(10000)
+Bind::Bind(Neuron * input, Neuron * output): m_input(input),m_output(output),m_coeff(double(rand()-RAND_MAX/2)/double(RAND_MAX/2)), m_stimulation(0), m_active(true), Epsilon(Neuron::sigmoide(0.0)), 
+	DELETE_BIND(-100), m_disactivity(0), DEF_DELETE_BIND(10000), Lambda(0.1)
 {
 }
 
@@ -27,6 +27,18 @@ double Bind::getValue()
 	return m_coeff*m_input->getValue();
 }
 
+void Bind::correctError()
+{
+	double e(m_input->m_error);
+	double eff_value(Lambda*e*m_output->m_value);
+	m_coeff -= eff_value;
+}
+
+void Bind::calcError()
+{
+	m_output->calcError();
+}
+
 void Bind::stimulate()
 {
 	if (m_input == NULL)
@@ -43,6 +55,11 @@ void Bind::stimulate()
 
 	if (m_stimulation < DELETE_BIND)
 		m_active = false;
+}
+
+double Bind::getError()
+{
+	return m_coeff*m_output->m_error;
 }
 
 void Bind::init()
