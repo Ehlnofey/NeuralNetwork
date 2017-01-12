@@ -17,10 +17,10 @@ WritingInterface::WritingInterface(bool out)
 	if(!out)
 		init(IN_LENGTH, 5, 50, 50);
 
-	std::ifstream file("./Ressources/liste.de.mots.francais.frgut.txt");/*test.txt");*/
+	std::ifstream file("./Ressources/test.txt");/*liste.de.mots.francais.frgut.txt");/**/
 
 	std::string c;
-	while(getline(file,c))
+	while(getline(file,c)&&m_database.size()<std::pow(8,6))
 		m_database.push_back(c);
 }
 
@@ -47,11 +47,22 @@ const std::vector<std::string>& WritingInterface::getDatabase()
 
 std::vector<double> WritingInterface::convert(std::string s)
 {
-	const double norm(0.000001);
+	const double norm(0.0001);
 	std::vector<double> data(IN_LENGTH,0);
 
 	for (unsigned int i = 0;i < s.size();i++)
 		data[i] = double(s[i])*norm;
+
+	return data;
+}
+
+std::string WritingInterface::convert(std::vector<double> s)
+{
+	const double norm(0.0001);
+	std::string data(IN_LENGTH, 0);
+
+	for (unsigned int i = 0; i < s.size(); i++)
+		data[i] = char(s[i]/norm);
 
 	return data;
 }

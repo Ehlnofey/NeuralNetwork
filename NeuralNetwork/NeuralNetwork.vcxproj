@@ -152,6 +152,7 @@
     <ClInclude Include="Cortex.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Layer1D.h" />
+    <ClInclude Include="MatrixNDim.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="Neuron.h" />

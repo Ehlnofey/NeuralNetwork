@@ -78,7 +78,7 @@ void Neuron::calcError()
 
 	for (unsigned int i = 0;i < m_output.size();i++)
 	{
-		m_output[i]->calcError();
+		//m_output[i]->calcError();
 		e += m_output[i]->m_output->m_error;
 	}
 

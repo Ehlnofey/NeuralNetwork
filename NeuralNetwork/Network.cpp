@@ -1,4 +1,5 @@
 #include <vector>
+#include <thread>
 #include "Neuron.h"
 #include "Bind.h"
 #include "Layer1D.h"
@@ -71,6 +72,19 @@ std::vector<Layer1D*> Network::getijLayer(unsigned int i, unsigned int j)
 	return networkPart;
 }
 
+void thread_train(Network *network, int n, std::vector<double> &errors, std::vector<std::vector<double>> &inputs, 
+	std::vector<std::vector<double>> &outputs)
+{
+	for (unsigned int i = 0; i < inputs.size() / n; i++)
+	{
+		unsigned int index(rand() % inputs.size());
+		std::vector<double> e(network->train(inputs[index], outputs[index]));
+
+		for (unsigned int j = 0; j < e.size(); j++)
+			errors[j] += e[j];
+	}
+}
+
 std::vector<double> Network::train(std::vector<std::vector<double>> inputs, std::vector<std::vector<double>> outputs)
 {
 	if (outputs.size() == 0)
@@ -78,18 +92,24 @@ std::vector<double> Network::train(std::vector<std::vector<double>> inputs, std:
 
 	std::vector<double> errors(outputs[0].size());
 
-	for (unsigned int i = 0;i < inputs.size();i++)
-	{
-		std::vector<double> e(train(inputs[i],outputs[i]));
+	unsigned int n(8);
+	std::vector<std::thread*> m_thread;
 
-		for (unsigned int j = 0;j < e.size();j++)
-			errors[j] += e[j];
+	for (unsigned int k = 0; k < n; k++)
+	{
+		m_thread.push_back(new std::thread(thread_train,this,n,errors,inputs,outputs));
+	}
+	for (unsigned int k = 0; k < n; k++)
+	{
+		m_thread[k]->join();
+		delete m_thread[k];
 	}
 	for (unsigned int j = 0;j < errors.size();j++)
 		errors[j] /= inputs.size();
 
-	m_network[0]->calcError();
 	(*m_network.rbegin())->calcError(errors);
+	for(size_t i=m_network.size()-2;i>0;i--)
+		m_network[i]->calcError();
 	(*m_network.rbegin())->correctError();
 
 

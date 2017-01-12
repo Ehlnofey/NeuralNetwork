@@ -4,6 +4,8 @@
 #include <map>
 #include <list>
 #include <thread>
+#include <string>
+#include "MatrixNDim.h"
 #include "Network.h"
 #include "Memory.h"
 #include "Cortex.h"
@@ -12,11 +14,31 @@
 #include "Brain.h"
 #include "Autoencoders.h"
 
+void test(int& x, MatrixCoord m)
+{
+	x = m[0] + 3 * m[1] + 9 * m[2];
+}
+
 int main()
 {
 	srand((unsigned int)time(NULL));
 
-	WritingInterface wi(true);
+	MatrixNDim<int> mat(3,3,2);
+
+	mat.applyForEachCoord(test);
+
+	for (int i = 0;i < 3;i++)
+		std::cout << mat(0,i,0) << std::endl;
+	
+	system("pause");
+
+	/*
+	std::cout << mat.size() << std::endl;
+	
+				std::cout <<  << std::endl;
+	
+
+	/*WritingInterface wi(true);
 
 	const std::vector<std::string> & sdb(wi.getDatabase());
 	std::vector<std::vector<double> > db(sdb.size());
@@ -62,10 +84,14 @@ int main()
 		{
 			autoencoders.extract();
 
-			autoencoders.getAleaDream();
+			std::cout << WritingInterface::convert(autoencoders.getAleaDream()) << std::endl;
+		}
+		else if (choix == 3)
+		{
+			autoencoders.rebuild();
 		}
 
-	}
+	}*/
 
 	return 0;
 }

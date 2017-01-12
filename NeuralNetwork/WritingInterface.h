@@ -10,6 +10,7 @@ public:
 	virtual std::vector<double> getInfo();
 	virtual	const std::vector<std::string>& getDatabase();
 	static std::vector<double> convert(std::string s);
+	static std::string convert(std::vector<double> s);
 	virtual void learn();
 	virtual ~WritingInterface();
 
