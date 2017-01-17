@@ -14,7 +14,7 @@
 #include "Brain.h"
 #include "Autoencoders.h"
 
-void test(int& x, MatrixCoord m)
+void test(int& x, MatrixCoord<unsigned int> m)
 {
 	x = m[0] + 3 * m[1] + 9 * m[2];
 }

@@ -25,6 +25,9 @@
     <Filter Include="Fichiers d%27en-tête\Core">
       <UniqueIdentifier>{e5876b6a-2002-4c6b-83ed-e2961bb45f3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Matrix">
+      <UniqueIdentifier>{495ae723-914b-4afe-8d42-58527bb1ee42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Interface.h">
@@ -58,7 +61,13 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="MatrixNDim.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Fichiers d%27en-tête\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixCoord.h">
+      <Filter>Fichiers d%27en-tête\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

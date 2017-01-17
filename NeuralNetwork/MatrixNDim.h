@@ -1,109 +1,28 @@
 #pragma once
 #include <cstdarg>
 #include <cmath>
-
-class MatrixCoord
-{
-public:
-	MatrixCoord(unsigned int size, ...) : m_size(size)
-	{
-		va_list vl;
-		va_start(vl, m_size);
-
-		m_coord = new unsigned int[m_size]();
-
-		for (unsigned int i = 0; i < m_size; i++)
-			m_coord[i] = va_arg(vl, unsigned int);
-
-		va_end(vl);
-	}
-
-	MatrixCoord(const MatrixCoord &copy) : m_coord(new unsigned int[copy.m_size]()),m_size(copy.m_size)
-	{
-		for (unsigned int i = 0; i < m_size; i++)
-			m_coord[i] = copy.m_coord[i];
-	}
-
-	MatrixCoord() :m_size(0), m_coord(NULL)
-	{
-
-	}
-
-	void init(unsigned int size)
-	{
-		m_size = size;
-
-		if (m_coord != NULL)
-			delete m_coord;
-
-		m_coord = new unsigned int[m_size]();
-	}
-
-	unsigned int size()
-	{
-		return m_size;
-	}
-
-	unsigned int& operator[](unsigned int index)
-	{
-		if (index < 0 || index >= m_size)
-			throw std::exception("Bah index in MatrixCoord.");
-
-		return m_coord[index];
-	}
-
-	~MatrixCoord()
-	{
-		if (m_coord != NULL)
-			delete m_coord;
-	}
-
-private:
-
-	unsigned int* m_coord;
-	unsigned int m_size;
-};
+#include "Matrix.h"
+#include "MatrixCoord.h"
 
 template <typename T>
-class MatrixNDim
+class MatrixNDim : public Matrix<T>
 {
 public:
-	MatrixNDim(unsigned int dim, unsigned int size, T elemType) : m_n(dim),m_size(size),m_firstElem(NULL),m_lastElem(NULL)
+	MatrixNDim(unsigned int dim, unsigned int size, T elemType) : m_n(dim),m_size(size), Matrix<T>()
 	{
 		unsigned int tot(unsigned int(std::pow(m_size, m_n)));
-		m_firstElem = new T[tot]();
+		
+		this->init(tot);
 
 		for (unsigned int i = 0;i < tot;i++)
 			m_firstElem[i] = elemType;
-
-		m_lastElem = m_firstElem + tot - 1;
 	}
-	MatrixNDim(unsigned int dim, unsigned int size) : m_n(dim), m_size(size), m_firstElem(NULL), m_lastElem(NULL)
+	MatrixNDim(unsigned int dim, unsigned int size) : m_n(dim), m_size(size)
 	{
 		unsigned int tot(unsigned int(std::pow(m_size, m_n)));
-		m_firstElem = new T[tot]();
-		m_lastElem = m_firstElem + tot - 1;
-	}
-	T& operator[](unsigned int i)
-	{
-		if (m_firstElem + i > m_lastElem)
-			throw std::exception("Out of range in a MatrixNDim.");
-		return m_firstElem[i];
+		this->init(tot);
 	}
 
-	template <typename F>
-	void apply(F& f)
-	{
-		for (T* ptr= m_firstElem;ptr <= m_lastElem;ptr++)
-			f(*ptr);
-	}
-
-	template <typename F>
-	void apply(F* f)
-	{
-		for (T* ptr = m_firstElem;ptr <= m_lastElem;ptr++)
-			(*f)(*ptr);
-	}
 	template <typename F>
 	void applyForEachCoord(F& f)
 	{
@@ -111,9 +30,9 @@ public:
 			f(*ptr, getDimCoord(unsigned int(ptr - m_firstElem)));
 	}
 
-	MatrixCoord getDimCoord(unsigned int index)
+	MatrixCoord<unsigned int> getDimCoord(unsigned int index)
 	{
-		MatrixCoord coord;
+		MatrixCoord<unsigned int> coord;
 
 		coord.init(m_n);
 
@@ -147,6 +66,38 @@ public:
 			throw std::exception("Out of range in a MatrixNDim.");
 
 		return m_firstElem[index];
+	}
+	template <typename S>//Renvoie une copie, ça me plait pas mais j'ai pas mieux. 
+	MatrixNDim<T> getSubMatrix(S& coord)
+	{
+		unsigned int newDim(m_n-coord.size());
+
+		MatrixNDim<T> sub(newDim,m_size);
+		MatrixCoord<unsigned int> c(m_n),d(sub.dim());
+
+		for (unsigned int i = 0; i < coord.size(); i++)
+			c[i] = coord[i];
+
+		while (c.last() < m_size)
+		{
+			for (unsigned int i = coord.size(); i < c.size() - 1; i++)
+			{
+				if (c[i] >= m_size)
+				{
+					c[i + 1]++;
+					c[i] = 0;
+				}
+				d[i] = c[i];
+			}
+
+			d.last() = c.last();
+
+			sub.get(d) = this.get(c);
+
+			c[coord.size()]++;
+		}
+
+		return sub;
 	}
 
 	template <typename S>
@@ -182,24 +133,9 @@ public:
 		return m_size;
 	}
 
-	__int64 length()
-	{
-		return m_lastElem - m_firstElem + 1;
-	}
-
-	T& first()
-	{
-		return *m_firstElem;
-	}
-
-	T& last()
-	{
-		return *m_lastElem;
-	}
-
 	~MatrixNDim()
 	{
-		delete m_firstElem;
+		
 	}
 
 private:
@@ -222,6 +158,4 @@ private:
 
 	unsigned int m_n;
 	unsigned int m_size;
-	T* m_firstElem;
-	T* m_lastElem;
 };
