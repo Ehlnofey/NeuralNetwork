@@ -14,39 +14,17 @@
 #include "Brain.h"
 #include "Autoencoders.h"
 
-void test(int& x, MatrixCoord<unsigned int> m)
+void __run()
 {
-	x = m[0] + 3 * m[1] + 9 * m[2];
-}
-
-int main()
-{
-	srand((unsigned int)time(NULL));
-
-	MatrixNDim<int> mat(3,3,2);
-
-	mat.applyForEachCoord(test);
-
-	for (int i = 0;i < 3;i++)
-		std::cout << mat(0,i,0) << std::endl;
-	
-	system("pause");
-
-	/*
-	std::cout << mat.size() << std::endl;
-	
-				std::cout <<  << std::endl;
-	
-
-	/*WritingInterface wi(true);
+	WritingInterface wi(true);
 
 	const std::vector<std::string> & sdb(wi.getDatabase());
-	std::vector<std::vector<double> > db(sdb.size());
+	Matrix<Matrix2D<double>* > db((unsigned int)sdb.size());
 
-	for (unsigned int i = 0;i<db.size();i++)
-		db[i] = WritingInterface::convert(sdb[i]);
+	for (unsigned int i = 0;i<db.length();i++)
+		db[i] = new Matrix2D<double>(WritingInterface::convert(sdb[i]));
 
-	Autoencoders autoencoders(db,25,25,2,12);
+	Autoencoders autoencoders(db, MatrixCoord<unsigned int>(3, 50, 25, 50));
 
 	bool run(true);
 
@@ -91,7 +69,19 @@ int main()
 			autoencoders.rebuild();
 		}
 
-	}*/
+	}
+
+	for (unsigned int i = 0;i < db.length();i++)
+		delete db[i];
+}
+
+int main()
+{
+	srand((unsigned int)time(NULL));
+
+	__run();
+
+	system("pause");
 
 	return 0;
 }

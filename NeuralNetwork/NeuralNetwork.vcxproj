@@ -153,10 +153,12 @@
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Layer1D.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Matrix2D.h" />
     <ClInclude Include="MatrixCoord.h" />
     <ClInclude Include="MatrixNDim.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Network.h" />
+    <ClInclude Include="Network1D.h" />
     <ClInclude Include="Neuron.h" />
     <ClInclude Include="WritingInterface.h" />
   </ItemGroup>
@@ -170,6 +172,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Network.cpp" />
+    <ClCompile Include="Network1D.cpp" />
     <ClCompile Include="Neuron.cpp" />
     <ClCompile Include="WritingInterface.cpp" />
   </ItemGroup>

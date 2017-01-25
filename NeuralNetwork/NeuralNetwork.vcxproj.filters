@@ -69,6 +69,12 @@
     <ClInclude Include="MatrixCoord.h">
       <Filter>Fichiers d%27en-tête\Matrix</Filter>
     </ClInclude>
+    <ClInclude Include="Matrix2D.h">
+      <Filter>Fichiers d%27en-tête\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Network1D.h">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -103,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="Autoencoders.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Network1D.cpp">
+      <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

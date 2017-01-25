@@ -1,15 +1,10 @@
-#include <vector>
 #include <iostream>
-#include "Neuron.h"
-#include "Bind.h"
-#include "Layer1D.h"
-#include "Network.h"
 #include "Autoencoders.h"
 
 
 
-Autoencoders::Autoencoders(std::vector<std::vector<double> > &database, unsigned int inputSize, unsigned int outputSize, unsigned int hideLayerCount, unsigned int hideLayerSize) : m_database(database),
-	m_network(inputSize, outputSize, hideLayerCount, hideLayerSize), m_hideLayerCount(hideLayerCount),m_inputSize(inputSize),m_outputSize(outputSize),m_hideLayerSize(hideLayerSize)
+Autoencoders::Autoencoders(Matrix<Matrix2D<double>* >  &database, MatrixCoord<unsigned int> &layerSize) : m_database(database),
+	m_network(layerSize), m_layerSize(layerSize)
 {
 }
 
@@ -19,12 +14,7 @@ void Autoencoders::minimizeError(double threshold, bool printError)
 	double old_mean(mean*10000);
 	while (std::abs(mean) >= threshold)
 	{
-		std::vector<double> error(m_network.train(m_database, m_database));
-
-		for (double &e : error)
-			mean += e;
-
-		mean /= error.size();
+		mean = m_network.train(m_database, m_database);
 
 		if (printError)
 			std::cout << mean << std::endl;
@@ -38,32 +28,30 @@ void Autoencoders::minimizeError(double threshold, bool printError)
 
 void Autoencoders::extract()
 {
-	m_extractedLayer = m_network.getijLayer(m_hideLayerCount / 2 + 1);
+	m_extractedNetwork = m_network.getSubNetwork((int)m_layerSize.length() / 2 + 1);
 }
 
 void Autoencoders::rebuild()
 {
-	m_network.build(m_inputSize, m_outputSize, m_hideLayerCount, m_hideLayerSize);
+	//m_network.build(m_inputSize, m_outputSize, m_hideLayerCount, m_hideLayerSize);
 }
 
-std::vector<double> Autoencoders::getDream(std::vector<double> data)
+Matrix2D<double> Autoencoders::getDream(Matrix2D<double> *data)
 {
-	if(data.size()==0)
-		return std::vector<double>();
+	if(data->length()==0)
+		return Matrix2D<double>();
 
-	m_extractedLayer[0]->setValue(data);
-
-	return (*m_extractedLayer.rbegin())->getValue();
+	return m_extractedNetwork.process(data);
 }
 
-std::vector<double> Autoencoders::getAleaDream()
+Matrix2D<double> Autoencoders::getAleaDream()
 {
-	std::vector<double> data(m_extractedLayer[0]->size());
+	Matrix2D<double> data(m_layerSize.last(),1);
 
-	for (unsigned int i = 0;i < data.size();i++)
-		data[i] = double(rand() % RAND_MAX) / double(RAND_MAX);
+	for (unsigned int i = 0;i < data.length();i++)
+		data(i,0) = double(rand() % RAND_MAX) / double(RAND_MAX);
 
-	return getDream(data);
+	return getDream(&data);
 }
 
 

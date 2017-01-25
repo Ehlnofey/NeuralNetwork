@@ -1,25 +1,25 @@
 #pragma once
-
-class Network;
-class Layer1D;
+#include <vector>
+#include "Network1D.h"
 
 class Autoencoders
 {
 public:
-	Autoencoders(std::vector<std::vector<double> >& database, unsigned int inputSize, unsigned int outputSize, unsigned int hideLayerCount, unsigned int hideLayerSize);
+	Autoencoders(Matrix<Matrix2D<double>* > & database, MatrixCoord<unsigned int> &layerSize);
 	void minimizeError(double threshold=0.1,bool printError=false);
 	void extract();
 	void rebuild();
-	std::vector<double> getDream(std::vector<double> data);
-	std::vector<double> getAleaDream();
+	Matrix2D<double> getDream(Matrix2D<double> *data);
+	Matrix2D<double> getAleaDream();
 	~Autoencoders();
 
 private:
-	Network m_network;
+	Network1D m_network;
 
-	unsigned int m_inputSize, m_outputSize, m_hideLayerCount, m_hideLayerSize;
-
-	std::vector<std::vector<double> > &m_database;
-	std::vector<Layer1D*> m_extractedLayer;
+	Matrix<Matrix2D<double>* > m_database;
+	
+	Network1D m_extractedNetwork;
+	
+	MatrixCoord<unsigned int> m_layerSize;
 };
 
